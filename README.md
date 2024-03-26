@@ -26,7 +26,7 @@ Image forest_fire.gif saved.
 
 
 ## Collaboration
-This project is open for collaboration. Contributions are welcome to continue developing the program according to the comprehensive description provided.
+This project is open for collaboration. Contributions are welcome to continue developing the program according to the description provided [here](https://github.com/agatakramm/forest/wiki/Forest-Fire-Simulation-Animation).
 
 ## License
 This project is licensed under the MIT License.
