@@ -58,7 +58,7 @@ void propagation(unsigned char **p, unsigned char **np, int h, int l, int *nbarb
 					np[i - 1][j] = 2;
 					(*nbarbresenfeu)++;
 				}
-				np[i][j] = 0;
+				np[i][j] = 3;
 				(*nbarbresenfeu)--;
 			}
 		}

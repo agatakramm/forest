@@ -2,7 +2,7 @@
 
 // Main function: creates a GIF animation presenting a cellular automaton "fire in the forest"
 void save_image_as_gif(const char *filename, int l, int h, int s, unsigned char dt, short v_flag) {
-	//GifColorType cmap[NBCOL];
+
 	GifFileType *gif;
 	GifPixelType *pixels;
 	int error;
@@ -11,28 +11,13 @@ void save_image_as_gif(const char *filename, int l, int h, int s, unsigned char 
 	int hs = h * s;
 	int nb_cols = l;
 
+	printf("ls=%d, hs=%d\n",ls,hs);
 
 	unsigned char ** nn = matrix(nb_cols, h);
 	unsigned char ** np = matrix(nb_cols, h);
 
-	gif = EGifOpenFileName(filename, false, &error);
-	if (gif == NULL) {
-		fprintf(stderr, "Erreur lors de l'ouverture du fichier GIF : %s\n", GifErrorString(error));
-		exit(EXIT_FAILURE);
-	}
-	// GIF image settings 
-	EGifSetGifVersion(gif, true);
-	gif->SColorMap = create_WhiteRedGreen();
 
-	if (EGifPutScreenDesc(gif, ls, hs, NBCOL, 0, gif->SColorMap) == GIF_ERROR) {
-		fprintf(stderr, "Error configuring GIF.\n");
-		if (EGifCloseFile(gif, NULL) == GIF_ERROR) {
-			fprintf(stderr, "Error finalizing GIF file.\n");
-			exit(EXIT_FAILURE);
-		}
-		exit(EXIT_FAILURE);
-	}
-
+	gif = init_gif(filename, ls, hs);
 	define_loop(gif);
 	foret(nn, l, h);
 	pixels = foret2GIF(gif, nn, l, h, s);
@@ -60,17 +45,44 @@ void save_image_as_gif(const char *filename, int l, int h, int s, unsigned char 
 	printf("Image %s sauvegardée.\n", filename);
 }
 
+GifFileType* init_gif(const char *filename, int ls, int hs){
+
+	GifFileType *gif;
+	int error;
+	printf("ls=%d, hs=%d\n",ls,hs);
+
+	gif = EGifOpenFileName(filename, false, &error);
+	if (gif == NULL) {
+		fprintf(stderr, "Erreur lors de l'ouverture du fichier GIF : %s\n", GifErrorString(error));
+		exit(EXIT_FAILURE);
+	}
+	// GIF image settings 
+	EGifSetGifVersion(gif, true);
+	gif->SColorMap = create_WhiteRedGreen();
+
+	if (EGifPutScreenDesc(gif, ls, hs, NBCOL, 0, gif->SColorMap) == GIF_ERROR) {
+		fprintf(stderr, "Error configuring GIF.\n");
+		if (EGifCloseFile(gif, NULL) == GIF_ERROR) {
+			fprintf(stderr, "Error finalizing GIF file.\n");
+			exit(EXIT_FAILURE);
+		}
+		exit(EXIT_FAILURE);
+	}
+	return gif;
+}
+
 // Creating a three-color palette (white, green, red)
 ColorMapObject *create_WhiteRedGreen(){
 
-	GifColorType cmap[3];
+	GifColorType cmap[4];//If you need more colors, increase the NBCOL constant to the next power of 2 greater than your number of colors.
 
-	// Initialisation de la colormap avec les couleurs souhaitées
-	cmap[0].Red = 255;   cmap[0].Green = 255;    cmap[0].Blue = 255;    // Blanc or olive
-	cmap[1].Red = 34;      cmap[1].Green = 139;    cmap[1].Blue = 34;    // Web forest  green rgb(34,139,34)
-	cmap[2].Red = 255;    cmap[2].Green = 0;      cmap[2].Blue = 0;    // Rouge
+	//Why the last color become white ? 
+	cmap[0].Red = 240;   cmap[0].Green = 240;    cmap[0].Blue = 255;    // White
+	cmap[1].Red = 4;      cmap[1].Green = 128;    cmap[1].Blue = 50;    // Web forest  green rgb(34,139,34)
+	cmap[2].Red = 255;    cmap[2].Green = 69;      cmap[2].Blue = 50;    // Red
+	cmap[3].Red = 70;    cmap[3].Green = 70;      cmap[3].Blue = 70;    // Grey
 
-	return  GifMakeMapObject(4, cmap);
+	return  GifMakeMapObject(NBCOL, cmap);
 }
 
 // Adding an image to a GIF animation.
@@ -137,8 +149,6 @@ void define_loop(GifFileType *gif){
 
 // Converting my cellular automaton matrix to a GIF pixel array.
 GifPixelType *foret2GIF(GifFileType *gif, unsigned char **n, int l, int h, int s) {
-	//int m = 0;
-	//int o = 0;
 	int error;
 	int lss = l * s * s;
 	int hs = h * s;

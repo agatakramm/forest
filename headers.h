@@ -27,6 +27,7 @@ void propagation(unsigned char **p, unsigned char **np, int h, int l, int *nbarb
 
 
 //GIF producing functions
+GifFileType* init_gif(const char *filename, int ls, int hs);
 GifPixelType *foret2GIF(GifFileType *gif, unsigned char **n, int l, int h, int s);
 void define_loop(GifFileType *gif);
 void add_image(GifFileType *gif, GifPixelType *pixels, int hs, int ls, unsigned char dt);
