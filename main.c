@@ -1,26 +1,26 @@
 /*
-* File Name: main.c
-* Author: Agata KRAMM 
-* Creation Date: 23 march 2024
-* Version: 1.0
-*
-* Description:
-* This program generates a GIF animation depicting a cellular automaton
-* named 'Fire in the Forest,' created by Pierre Audibert. The program allows
-* the user to specify the grid dimensions, cell size, delay between images,
-* and other options via command line arguments. Currently, the program
-* implements the first part of the functionalities described in the document
-* found at the following address:
-* http://www.pierreaudibert.fr/tra/feudeforet.pdf
-*
-* This project is open for collaboration. Contributions are welcome to continue
-* developing the program according to the comprehensive description provided.
-*
-* License: MIT License (if you have chosen this license)
-*
-* Acknowledgements:
-* Dedicated to the memory of Pierre Audibert, my professor of applied mathematics
-* to computer science */
+ * File Name: main.c
+ * Author: Agata KRAMM 
+ * Creation Date: 23 march 2024
+ * Version: 1.0
+ *
+ * Description:
+ * This program generates a GIF animation depicting a cellular automaton
+ * named 'Fire in the Forest,' created by Pierre Audibert. The program allows
+ * the user to specify the grid dimensions, cell size, delay between images,
+ * and other options via command line arguments. Currently, the program
+ * implements the first part of the functionalities described in the document
+ * found at the following address:
+ * http://www.pierreaudibert.fr/tra/feudeforet.pdf
+ *
+ * This project is open for collaboration. Contributions are welcome to continue
+ * developing the program according to the comprehensive description provided.
+ *
+ * License: MIT License (if you have chosen this license)
+ *
+ * Acknowledgements:
+ * Dedicated to the memory of Pierre Audibert, my professor of applied mathematics
+ * to computer science */
 #include "headers.h"
 
 void print_help() {
@@ -92,13 +92,13 @@ int main(int argc, char *argv[]) {
 				break;
 			case 'H':
 				//if (strcmp("help", argv[optind - 1]) == 0) {
-					print_help();
-					exit(EXIT_SUCCESS);
+				print_help();
+				exit(EXIT_SUCCESS);
 				//}
 			case 'V':
 				//if (strcmp("version", argv[optind - 1]) == 0) {
-					print_version();
-					exit(EXIT_SUCCESS);
+				print_version();
+				exit(EXIT_SUCCESS);
 				//}
 			default:
 				fprintf(stderr, "Utilisation : %s [--hight <value>] [--width <value>] [--size <value>] [--version] [--help]\n", argv[0]);

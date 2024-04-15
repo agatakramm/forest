@@ -78,9 +78,9 @@ ColorMapObject *create_WhiteRedGreen(){
 
 	//Why the last color become white ? 
 	cmap[0].Red = 240;   cmap[0].Green = 240;    cmap[0].Blue = 255;    // White
-	cmap[1].Red = 4;      cmap[1].Green = 128;    cmap[1].Blue = 50;    // Web forest  green rgb(34,139,34)
+	cmap[1].Red = 0;      cmap[1].Green = 128;    cmap[1].Blue = 50;    // Web forest  green rgb(34,139,34)
 	cmap[2].Red = 255;    cmap[2].Green = 69;      cmap[2].Blue = 50;    // Red
-	cmap[3].Red = 70;    cmap[3].Green = 70;      cmap[3].Blue = 70;    // Grey
+	cmap[3].Red = 40;    cmap[3].Green = 40;      cmap[3].Blue = 40;    // Grey
 
 	return  GifMakeMapObject(NBCOL, cmap);
 }
